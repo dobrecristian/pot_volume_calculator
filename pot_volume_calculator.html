@@ -120,14 +120,15 @@
       border-radius: 8px;
     }
   </style>
+<!-- ...[same <head> and <style> as before]... -->
 </head>
 <body>
 
+  <!-- [Logo and Title] -->
   <img src="https://sonoregreens.com/wp-content/uploads/2022/08/sonoregreens-logo-3.png" alt="Logo" style="max-width: 200px; display: block; margin: 0 auto;">
-
   <h2>🌿 Calculator Volum Ghiveci</h2>
 
-  <!-- Circular Pot -->
+  <!-- Circular Pot Section -->
   <table>
     <tr><th colspan="2">🌱 Ghiveci Circular</th></tr>
     <tr>
@@ -148,12 +149,7 @@
     </tr>
   </table>
 
-  <button onclick="calculate()">🌻 Calculează</button>
-
-  <div class="result" id="volumeResult"></div>
-  <div id="breakdownTable"></div>
-
-  <!-- Rectangular Pot -->
+  <!-- Rectangular Pot Section -->
   <table>
     <tr><th colspan="2">🌿 Ghiveci Dreptunghiular</th></tr>
     <tr>
@@ -178,73 +174,85 @@
     </tr>
   </table>
 
-  <button onclick="calculateRect()">🌻 Calculează </button>
+  <!-- Single Calculate Button -->
+  <button onclick="calculateBoth()">🌻 Calculează</button>
+
+  <!-- Results for Both Pots (moved below the button) -->
+  <div class="result" id="volumeResult"></div>
+  <div id="breakdownTable"></div>
 
   <div class="result" id="volumeResultRect"></div>
   <div id="breakdownTableRect"></div>
 
+  <!-- Script -->
   <script>
+    // Toggle collapsible sections
     var coll = document.getElementsByClassName("collapsible");
     for (var i = 0; i < coll.length; i++) {
-      coll[i].addEventListener("click", function() {
+      coll[i].addEventListener("click", function () {
         this.classList.toggle("active");
         var content = this.nextElementSibling;
-        if (content.style.display === "block") {
-          content.style.display = "none";
-        } else {
-          content.style.display = "block";
-        }
+        content.style.display = (content.style.display === "block") ? "none" : "block";
       });
     }
 
-    function calculate() {
+    function calculateBoth() {
+      // Clear all results
+      document.getElementById("volumeResult").innerText = "";
+      document.getElementById("breakdownTable").innerHTML = "";
+      document.getElementById("volumeResultRect").innerText = "";
+      document.getElementById("breakdownTableRect").innerHTML = "";
+
+      let hasInput = false;
+
+      // Circular Pot Calculation
       const d = parseFloat(document.getElementById("diameter").value);
       const h = parseFloat(document.getElementById("height").value);
+      if (d && h) {
+        hasInput = true;
+        const r = d / 2;
+        const volume = Math.PI * r * r * h / 1000;
+        const bags5L = Math.ceil(volume / 5);
+        const bags2_5L = Math.ceil(volume / 2.5);
 
-      if (!d || !h) {
-        alert("Please fill in both fields 🌱");
-        return;
+        document.getElementById("volumeResult").innerText = `🧪 Volum: ${volume.toFixed(2)} litri`;
+
+        let breakdownHTML = "<h3>📊 Detalii:</h3><table>";
+        breakdownHTML += `<tr><th>Tip ghiveci</th><td>Ghiveci circular</td></tr>`;
+        breakdownHTML += `<tr><th>Volum (L)</th><td>${volume.toFixed(2)}</td></tr>`;
+        breakdownHTML += `<tr><th>Număr saci 5L</th><td>${bags5L}</td></tr>`;
+        breakdownHTML += `<tr><th>Număr saci 2.5L</th><td>${bags2_5L}</td></tr>`;
+        breakdownHTML += "</table>";
+
+        document.getElementById("breakdownTable").innerHTML = breakdownHTML;
       }
 
-      const r = d / 2;
-      const volume = Math.PI * r * r * h / 1000;
-      const bags5L = Math.ceil(volume / 5);
-      const bags2_5L = Math.ceil(volume / 2.5);
-
-      document.getElementById("volumeResult").innerText = `🧪 Volum: ${volume.toFixed(2)} litri`;
-
-      let breakdownHTML = "<h3>📊 Detalii:</h3><table>";
-      breakdownHTML += `<tr><th>Volum (L)</th><td>${volume.toFixed(2)}</td></tr>`;
-      breakdownHTML += `<tr><th>Număr saci 5L</th><td>${bags5L}</td></tr>`;
-      breakdownHTML += `<tr><th>Număr saci 2.5L</th><td>${bags2_5L}</td></tr>`;
-      breakdownHTML += "</table>";
-
-      document.getElementById("breakdownTable").innerHTML = breakdownHTML;
-    }
-
-    function calculateRect() {
+      // Rectangular Pot Calculation
       const l = parseFloat(document.getElementById("lengthRect").value);
       const w = parseFloat(document.getElementById("widthRect").value);
-      const h = parseFloat(document.getElementById("heightRect").value);
+      const hRect = parseFloat(document.getElementById("heightRect").value);
+      if (l && w && hRect) {
+        hasInput = true;
+        const volumeRect = l * w * hRect / 1000;
+        const bags5LRect = Math.ceil(volumeRect / 5);
+        const bags2_5LRect = Math.ceil(volumeRect / 2.5);
 
-      if (!l || !w || !h) {
-        alert("Please fill in all rectangular pot fields 🪴");
-        return;
+        document.getElementById("volumeResultRect").innerText = `🧪 Volum: ${volumeRect.toFixed(2)} litri`;
+
+        let breakdownHTMLRect = "<h3>📊 Detalii:</h3><table>";
+        breakdownHTMLRect += `<tr><th>Tip ghiveci</th><td>Ghiveci dreptunghiular</td></tr>`;
+        breakdownHTMLRect += `<tr><th>Volum (L)</th><td>${volumeRect.toFixed(2)}</td></tr>`;
+        breakdownHTMLRect += `<tr><th>Număr saci 5L</th><td>${bags5LRect}</td></tr>`;
+        breakdownHTMLRect += `<tr><th>Număr saci 2.5L</th><td>${bags2_5LRect}</td></tr>`;
+        breakdownHTMLRect += "</table>";
+
+        document.getElementById("breakdownTableRect").innerHTML = breakdownHTMLRect;
       }
 
-      const volume = l * w * h / 1000;
-      const bags5L = Math.ceil(volume / 5);
-      const bags2_5L = Math.ceil(volume / 2.5);
-
-      document.getElementById("volumeResultRect").innerText = `🧪 Volum: ${volume.toFixed(2)} litri`;
-
-      let breakdownHTML = "<h3>📊 Detalii:</h3><table>";
-      breakdownHTML += `<tr><th>Volum (L)</th><td>${volume.toFixed(2)}</td></tr>`;
-      breakdownHTML += `<tr><th>Număr saci 5L</th><td>${bags5L}</td></tr>`;
-      breakdownHTML += `<tr><th>Număr saci 2.5L</th><td>${bags2_5L}</td></tr>`;
-      breakdownHTML += "</table>";
-
-      document.getElementById("breakdownTableRect").innerHTML = breakdownHTML;
+      // No input at all
+      if (!hasInput) {
+        alert("Completează cel puțin un calculator 🌿");
+      }
     }
   </script>
 
