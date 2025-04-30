@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -75,7 +75,7 @@
       text-align: center;
     }
 
-    #breakdownTable table {
+    #breakdownTable table, #breakdownTableRect table {
       background-color: #f0fff0;
     }
 
@@ -127,21 +127,22 @@
 
   <h2>🌿 Calculator Volum Ghiveci</h2>
 
+  <!-- Circular Pot -->
   <table>
-    <tr><th colspan="2">🌱 Pot Info</th></tr>
+    <tr><th colspan="2">🌱 Ghiveci Circular</th></tr>
     <tr>
-      <td>Diametru Ghiveci (cm):</td>
+      <td>Diametru (cm):</td>
       <td><input type="number" id="diameter" /></td>
     </tr>
     <tr>
-      <td>Înălțime Ghiveci (cm):</td>
+      <td>Înălțime (cm):</td>
       <td><input type="number" id="height" /></td>
     </tr>
     <tr>
       <td colspan="2">
-        <button class="collapsible">Cum să măsori un ghiveci</button>
+        <button class="collapsible">Cum să măsori un ghiveci circular</button>
         <div class="content">
-          <img src="https://i.imgur.com/XwDhsjJ.png" alt="Cum sa masori un ghiveci">
+          <img src="https://i.imgur.com/XwDhsjJ.png" alt="Cum sa masori un ghiveci circular">
         </div>
       </td>
     </tr>
@@ -152,45 +153,100 @@
   <div class="result" id="volumeResult"></div>
   <div id="breakdownTable"></div>
 
-<script>
-  var coll = document.getElementsByClassName("collapsible");
-  for (var i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-      this.classList.toggle("active");
-      var content = this.nextElementSibling;
-      if (content.style.display === "block") {
-        content.style.display = "none";
-      } else {
-        content.style.display = "block";
-      }
-    });
-  }
+  <!-- Rectangular Pot -->
+  <table>
+    <tr><th colspan="2">🌿 Ghiveci Dreptunghiular</th></tr>
+    <tr>
+      <td>Lungime (cm):</td>
+      <td><input type="number" id="lengthRect" /></td>
+    </tr>
+    <tr>
+      <td>Lățime (cm):</td>
+      <td><input type="number" id="widthRect" /></td>
+    </tr>
+    <tr>
+      <td>Înălțime (cm):</td>
+      <td><input type="number" id="heightRect" /></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <button class="collapsible">Cum să măsori un ghiveci dreptunghiular</button>
+        <div class="content">
+          <img src="https://i.imgur.com/2CRuDR6.png" alt="Cum sa masori un ghiveci dreptunghiular">
+        </div>
+      </td>
+    </tr>
+  </table>
 
-  function calculate() {
-    const d = parseFloat(document.getElementById("diameter").value);
-    const h = parseFloat(document.getElementById("height").value);
+  <button onclick="calculateRect()">🌻 Calculează </button>
 
-    if (!d || !h) {
-      alert("Please fill in both fields 🌱");
-      return;
+  <div class="result" id="volumeResultRect"></div>
+  <div id="breakdownTableRect"></div>
+
+  <script>
+    var coll = document.getElementsByClassName("collapsible");
+    for (var i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
     }
 
-    const r = d / 2;
-    const volume = Math.PI * r * r * h / 1000; // volume in liters
-    const bags5L = Math.ceil(volume / 5);
-    const bags2_5L = Math.ceil(volume / 2.5);
+    function calculate() {
+      const d = parseFloat(document.getElementById("diameter").value);
+      const h = parseFloat(document.getElementById("height").value);
 
-    document.getElementById("volumeResult").innerText = `🧪 Volum: ${volume.toFixed(2)} litri`;
+      if (!d || !h) {
+        alert("Please fill in both fields 🌱");
+        return;
+      }
 
-    let breakdownHTML = "<h3>📊 Detalii:</h3><table>";
-    breakdownHTML += `<tr><th>Volum (L)</th><td>${volume.toFixed(2)}</td></tr>`;
-    breakdownHTML += `<tr><th>Număr saci 5L</th><td>${bags5L}</td></tr>`;
-    breakdownHTML += `<tr><th>Număr saci 2.5L</th><td>${bags2_5L}</td></tr>`;
-    breakdownHTML += "</table>";
+      const r = d / 2;
+      const volume = Math.PI * r * r * h / 1000;
+      const bags5L = Math.ceil(volume / 5);
+      const bags2_5L = Math.ceil(volume / 2.5);
 
-    document.getElementById("breakdownTable").innerHTML = breakdownHTML;
-  }
-</script>
+      document.getElementById("volumeResult").innerText = `🧪 Volum: ${volume.toFixed(2)} litri`;
+
+      let breakdownHTML = "<h3>📊 Detalii:</h3><table>";
+      breakdownHTML += `<tr><th>Volum (L)</th><td>${volume.toFixed(2)}</td></tr>`;
+      breakdownHTML += `<tr><th>Număr saci 5L</th><td>${bags5L}</td></tr>`;
+      breakdownHTML += `<tr><th>Număr saci 2.5L</th><td>${bags2_5L}</td></tr>`;
+      breakdownHTML += "</table>";
+
+      document.getElementById("breakdownTable").innerHTML = breakdownHTML;
+    }
+
+    function calculateRect() {
+      const l = parseFloat(document.getElementById("lengthRect").value);
+      const w = parseFloat(document.getElementById("widthRect").value);
+      const h = parseFloat(document.getElementById("heightRect").value);
+
+      if (!l || !w || !h) {
+        alert("Please fill in all rectangular pot fields 🪴");
+        return;
+      }
+
+      const volume = l * w * h / 1000;
+      const bags5L = Math.ceil(volume / 5);
+      const bags2_5L = Math.ceil(volume / 2.5);
+
+      document.getElementById("volumeResultRect").innerText = `🧪 Volum: ${volume.toFixed(2)} litri`;
+
+      let breakdownHTML = "<h3>📊 Detalii:</h3><table>";
+      breakdownHTML += `<tr><th>Volum (L)</th><td>${volume.toFixed(2)}</td></tr>`;
+      breakdownHTML += `<tr><th>Număr saci 5L</th><td>${bags5L}</td></tr>`;
+      breakdownHTML += `<tr><th>Număr saci 2.5L</th><td>${bags2_5L}</td></tr>`;
+      breakdownHTML += "</table>";
+
+      document.getElementById("breakdownTableRect").innerHTML = breakdownHTML;
+    }
+  </script>
 
 </body>
 </html>
