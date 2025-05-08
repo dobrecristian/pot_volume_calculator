@@ -9,124 +9,197 @@
     body {
       background: url('https://i.imgur.com/LgrxpLz.png'), #d0f0c0;
       font-family: 'Quicksand', cursive;
-      font-size: 22px;
-      padding: 20px;
+      font-size: 20px;
+      padding: 12px;
       max-width: 900px;
       margin: auto;
       color: #2f4f2f;
     }
-
     h2 {
       color: #2e7d32;
       text-align: center;
-      font-size: 36px;
+      font-size: 30px;
+      margin-bottom: 12px;
+      margin-top: 12px;
     }
-
     table {
       width: 100%;
-      margin-top: 20px;
+      margin-top: 12px;
       border-collapse: collapse;
       background: rgba(255, 255, 255, 0.9);
       border-radius: 12px;
       overflow: hidden;
     }
-
     th, td {
-      padding: 12px;
+      padding: 7px 8px;
       text-align: left;
       border-bottom: 1px solid #ccc;
     }
-
     th {
       background-color: #b5e7a0;
       color: #2f4f2f;
-    }
-
-    input[type="number"] {
-      width: 50%;
-      padding: 5px;
       font-size: 18px;
-      border-radius: 5px;
-      border: 1px solid #bbb;
     }
-
+    /* Gradient fields */
+    input[type="number"], input[type="text"] {
+      width: 70%;
+      padding: 5px 8px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 2px solid #cdeac0;
+      background: linear-gradient(120deg, #eafaf1 60%, #cdeac0 100%);
+      color: #2f4f2f;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+      margin-top: 1px;
+      margin-bottom: 1px;
+      box-shadow: 0 1px 4px 0 rgba(76,175,80,0.06);
+    }
+    input[type="number"]:focus, input[type="text"]:focus {
+      border-color: #66bb6a;
+      box-shadow: 0 0 0 2px #b5e7a0;
+    }
+    .plant-field-row {
+      margin-top: 16px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 12px;
+    }
+    .plant-field-label {
+      min-width: 220px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .plant-field-input {
+      flex: 1;
+      width: 100%;
+      max-width: 350px;
+    }
     label {
       display: block;
+      font-size: 16px;
     }
-
     button {
       background-color: #66bb6a;
       color: white;
-      font-size: 20px;
-      padding: 12px 20px;
+      font-size: 18px;
+      padding: 8px 16px;
       border: none;
-      border-radius: 8px;
+      border-radius: 7px;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 12px;
       display: block;
       margin-left: auto;
       margin-right: auto;
+      transition: background 0.2s, transform 0.1s;
+      font-weight: 600;
     }
-
+    button:hover, button:focus {
+      background-color: #388e3c;
+      transform: scale(1.03);
+    }
     .result {
-      margin-top: 20px;
+      margin-top: 12px;
       font-weight: bold;
-      font-size: 24px;
+      font-size: 20px;
       text-align: center;
     }
-
+    .plant-links {
+      margin: 18px auto 0 auto;
+      max-width: 600px;
+      background: #f8fff8;
+      border: 1.5px solid #b5e7a0;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 18px;
+      box-shadow: 0 1px 4px 0 rgba(76,175,80,0.06);
+      text-align: left;
+    }
+    .plant-links-title {
+      color: #2e7d32;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .plant-links-list {
+      margin: 0;
+      padding-left: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      list-style: none;
+    }
+    .plant-links-list li {
+      margin-bottom: 4px;
+      font-size: 17px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      max-width: 160px;
+    }
+    .plant-thumb {
+      width: 140px;
+      height: 210px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid #b5e7a0;
+      margin-bottom: 6px;
+      background: #eafaf1;
+      box-shadow: 0 1px 4px 0 rgba(76,175,80,0.06);
+    }
     #breakdownTable table, #breakdownTableRect table {
       background-color: #f0fff0;
+      margin-top: 7px;
     }
-
     img {
       display: block;
-      margin: 30px auto;
+      margin: 18px auto;
       max-width: 100%;
       border: 2px solid #a5d6a7;
       border-radius: 10px;
     }
-
     .collapsible {
       background-color: #66bb6a;
       color: white;
-      font-size: 18px;
-      padding: 10px;
+      font-size: 16px;
+      padding: 6px 8px;
       border: none;
       width: 100%;
       text-align: left;
       cursor: pointer;
-      border-radius: 8px;
-      margin-top: 10px;
+      border-radius: 7px;
+      margin-top: 6px;
     }
-
     .collapsible:after {
       content: ' ▼';
     }
-
     .active:after {
       content: ' ▲';
     }
-
     .content {
-      padding: 10px;
+      padding: 7px;
       display: none;
       overflow: hidden;
       background-color: #f1f1f1;
     }
-
     .content img {
       width: 100%;
       border-radius: 8px;
     }
   </style>
-<!-- ...[same <head> and <style> as before]... -->
 </head>
 <body>
-
-  <!-- [Logo and Title] -->
-  <img src="https://sonoregreens.com/wp-content/uploads/2022/08/sonoregreens-logo-3.png" alt="Logo" style="max-width: 200px; display: block; margin: 0 auto;">
+  <img src="https://sonoregreens.com/wp-content/uploads/2022/08/sonoregreens-logo-3.png" alt="Logo" style="max-width: 160px; display: block; margin: 0 auto;">
   <h2>🌿 Calculator Volum Ghiveci</h2>
+
+  <!-- Plant field -->
+  <div class="plant-field-row">
+    <label class="plant-field-label" for="plantName">🌱 Pentru ce plantă vrei mixul de sol?</label>
+    <input type="text" id="plantName" class="plant-field-input" placeholder="ex: Monstera, Ficus, Orhidee..." autocomplete="off" />
+  </div>
 
   <!-- Circular Pot Section -->
   <table>
@@ -180,11 +253,10 @@
   <!-- Results for Both Pots (moved below the button) -->
   <div class="result" id="volumeResult"></div>
   <div id="breakdownTable"></div>
-
   <div class="result" id="volumeResultRect"></div>
   <div id="breakdownTableRect"></div>
+  <div id="plantLinks"></div>
 
-  <!-- Script -->
   <script>
     // Toggle collapsible sections
     var coll = document.getElementsByClassName("collapsible");
@@ -196,12 +268,44 @@
       });
     }
 
+    // Helper to fetch TikTok search results (using TikTok's search page)
+    async function showPlantLinks(plantName) {
+      const container = document.getElementById("plantLinks");
+      container.innerHTML = "";
+      if (!plantName) return;
+
+      const search = `sonore.greens ${plantName}`.trim().replace(/\s+/g, '+');
+      const tiktokSearchUrl = `https://www.tiktok.com/search?q=${encodeURIComponent('sonore.greens ' + plantName)}`;
+
+      // For thumbnails, we need to scrape or use TikTok's oEmbed API, but since that's not available client-side,
+      // we'll use an iframe embed for the search page and a fallback link.
+      // For a better UX, we can show a styled link and a preview image (using TikTok's preview image pattern).
+
+      // Try to fetch video links and thumbnails (demo: show 4 video thumbnails using TikTok's preview image pattern)
+      // NOTE: TikTok does not provide a public search API or direct thumbnails for search results.
+      // We'll just display the search link and a message.
+      let html = `<div class="plant-links"><div class="plant-links-title">🔗 Clipuri cu <b>${plantName}</b></b>:</div>
+      <ul class="plant-links-list">
+        <li>
+          <a href="${tiktokSearchUrl}" target="_blank" rel="noopener">
+            <img class="plant-thumb" src="https://www.tiktok.com/favicon.ico" alt="TikTok" />
+            TikTok: ${plantName}
+          </a>
+        </li>
+      </ul>
+      <div style="font-size:15px; color:#388e3c; margin-top:8px;">Deschide linkul pentru a vedea cele mai relevante videoclipuri cu ${plantName}.</div>
+      </div>`;
+
+      container.innerHTML = html;
+    }
+
     function calculateBoth() {
       // Clear all results
       document.getElementById("volumeResult").innerText = "";
       document.getElementById("breakdownTable").innerHTML = "";
       document.getElementById("volumeResultRect").innerText = "";
       document.getElementById("breakdownTableRect").innerHTML = "";
+      document.getElementById("plantLinks").innerHTML = "";
 
       let hasInput = false;
 
@@ -249,12 +353,17 @@
         document.getElementById("breakdownTableRect").innerHTML = breakdownHTMLRect;
       }
 
+      // Plant field logic
+      const plantName = document.getElementById("plantName").value.trim();
+      if (plantName) {
+        showPlantLinks(plantName);
+      }
+
       // No input at all
       if (!hasInput) {
         alert("Completează cel puțin un calculator 🌿");
       }
     }
   </script>
-
 </body>
 </html>
