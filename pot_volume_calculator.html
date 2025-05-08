@@ -40,7 +40,6 @@
       color: #2f4f2f;
       font-size: 18px;
     }
-    /* Gradient fields */
     input[type="number"], input[type="text"] {
       width: 70%;
       padding: 5px 8px;
@@ -268,32 +267,36 @@
       });
     }
 
-    // Helper to fetch TikTok search results (using TikTok's search page)
-    async function showPlantLinks(plantName) {
+    // TikTok link logic: open in app if mobile, else in browser
+    function isMobile() {
+      return /android|iphone|ipad|ipod|opera mini|iemobile|mobile/i.test(navigator.userAgent);
+    }
+
+    function showPlantLinks(plantName) {
       const container = document.getElementById("plantLinks");
       container.innerHTML = "";
       if (!plantName) return;
 
-      const search = `sonore.greens ${plantName}`.trim().replace(/\s+/g, '+');
-      const tiktokSearchUrl = `https://www.tiktok.com/search?q=${encodeURIComponent('sonore.greens ' + plantName)}`;
+      const searchTerm = `sonore.greens ${plantName}`;
+      const tiktokWebUrl = `https://www.tiktok.com/search?q=${encodeURIComponent(searchTerm)}`;
+      const tiktokAppUrl = `tiktok://search?q=${encodeURIComponent(searchTerm)}`;
 
-      // For thumbnails, we need to scrape or use TikTok's oEmbed API, but since that's not available client-side,
-      // we'll use an iframe embed for the search page and a fallback link.
-      // For a better UX, we can show a styled link and a preview image (using TikTok's preview image pattern).
-
-      // Try to fetch video links and thumbnails (demo: show 4 video thumbnails using TikTok's preview image pattern)
-      // NOTE: TikTok does not provide a public search API or direct thumbnails for search results.
-      // We'll just display the search link and a message.
-      let html = `<div class="plant-links"><div class="plant-links-title">🔗 Clipuri cu <b>${plantName}</b></b>:</div>
-      <ul class="plant-links-list">
-        <li>
-          <a href="${tiktokSearchUrl}" target="_blank" rel="noopener">
-            <img class="plant-thumb" src="https://www.tiktok.com/favicon.ico" alt="TikTok" />
-            TikTok: ${plantName}
-          </a>
-        </li>
-      </ul>
-      <div style="font-size:15px; color:#388e3c; margin-top:8px;">Deschide linkul pentru a vedea cele mai relevante videoclipuri cu ${plantName}.</div>
+      // The link will use the app if mobile, else web
+      let html = `<div class="plant-links">
+        <div class="plant-links-title">🔗 Clipuri cu <b>${plantName}</b> pe TikTok sonore.greens:</div>
+        <ul class="plant-links-list">
+          <li>
+            <a href="${tiktokWebUrl}" 
+               onclick="if(window.isMobile && isMobile()){window.location='${tiktokAppUrl}'; return false;}" 
+               target="_blank" rel="noopener">
+              <img class="plant-thumb" src="https://www.tiktok.com/favicon.ico" alt="TikTok" />
+              TikTok: ${plantName}
+            </a>
+          </li>
+        </ul>
+        <div style="font-size:15px; color:#388e3c; margin-top:8px;">
+          Pe mobil, linkul se va deschide în aplicația TikTok dacă este instalată.
+        </div>
       </div>`;
 
       container.innerHTML = html;
@@ -364,6 +367,8 @@
         alert("Completează cel puțin un calculator 🌿");
       }
     }
+    // Expose isMobile to the link onclick
+    window.isMobile = isMobile;
   </script>
 </body>
 </html>
